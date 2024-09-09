@@ -1,12 +1,14 @@
 #include <iostream>
+#include <vector>
+#include <map>
 using namespace std;
 
 class Node
 {
-    int data;
-    Node *next;
 
 public:
+    int data;
+    Node *next;
     Node(int val) : data(val), next(nullptr) {}
     Node(int val, Node *addr) : data(val), next(addr) {}
 
@@ -74,66 +76,55 @@ public:
         p->next = newNode;
         return head;
     }
-
-    static Node *DeleteNodeAtFirst(Node *head)
+    /*****************************************************************************************/
+    static int length(Node *head)
     {
-        if (head == nullptr)
+        Node *ptr = head;
+        int count = 0;
+        while (ptr != nullptr)
         {
-            return nullptr;
+            ptr = ptr->next;
+            count++;
         }
-        Node *temp = head;
-        head = head->next;
-        delete temp;
-
-        return head;
+        return count;
     }
-    static Node *DeleteNodeAtLast(Node *head)
+
+    static Node* appendKNodes(Node *&head, int k)
     {
-        if ((head == nullptr) || (head->next == nullptr))
+        int len = length(head);
+        if (k == 0)
         {
-            return nullptr;
-        }
-        Node *temp = head;
-        while (temp->next->next != nullptr)
-        {
-            temp = temp->next;
-        }
-        delete temp->next;
-        temp->next = nullptr;
-
-        return head;
-    }
-    static Node *DeleteNodeInBetween(struct Node *head, int index)
-    {
-
-        if (head == nullptr)
-        {
-            return nullptr;
-        }
-        if (head->next == nullptr)
-        {
-            DeleteNodeAtFirst(head);
-        }
-        Node *p = head;
-        Node *q = head->next;
-        int i = 0;
-
-        while (p != nullptr && i < index - 1)
-        {
-            p = p->next;
-            i++;
-        }
-        if (p == nullptr || p->next == nullptr)
-        {
-            cout << "Index out of bounds" << endl;
             return head;
         }
-        q = p->next;
-        p->next = q->next;
-        delete q;
+        if (k >= len)
+        {
+            k = len % k;
+        }
+        Node *newTail = nullptr;
+        Node *newHead = nullptr;
+        Node *tail = head;
+
+        int count = 1;
+        while (tail->next != nullptr)
+        {
+            if (count == (len - k))
+            {
+                newTail = tail;
+            }
+            if (count == (len - k + 1))
+            {
+                newHead = tail;
+            }
+            tail = tail->next;
+            count++;
+        }
+        newTail->next = nullptr;
+        tail->next = head;
+        head = newHead;
+
         return head;
     }
-
+    /*********************************************************************************************/
     // Destructor to release allocated memory
     ~Node()
     {
@@ -143,34 +134,22 @@ public:
 int main()
 {
     Node *head = new Node(20);
-    Node::traverse(head);
-
-    head = Node::insertAtFirst(head, 15); // Update head to new node after insertion
-    Node::traverse(head);
-
-    head = Node::insertAtFirst(head, 7); // Update head to new node after insertion
-    head = Node::insertAtFirst(head, 3); // Update head to new node after insertion
-    head = Node::insertAtFirst(head, 2); // Update head to new node after insertion
-    head = Node::insertAtFirst(head, 1); // Update head to new node after insertion
-    Node::traverse(head);
-
+    head = Node::insertAtFirst(head, 15);      // Update head to new node after insertion
+    head = Node::insertAtFirst(head, 7);       // Update head to new node after insertion
+    head = Node::insertAtFirst(head, 3);       // Update head to new node after insertion
+    head = Node::insertAtFirst(head, 2);       // Update head to new node after insertion
+    head = Node::insertAtFirst(head, 1);       // Update head to new node after insertion
     head = Node::insertInBetween(head, 10, 4); // Update head to new node after insertion
+    head = Node::insertAtLast(head, 25);       // Update head to new node after insertion
     Node::traverse(head);
 
-    head = Node::insertAtLast(head, 25); // Update head to new node after insertion
-    Node::traverse(head);
+    /*****************************************************************************************/
 
-    head = Node::DeleteNodeAtFirst(head); // Update head to new node after insertion
-    Node::traverse(head);
-
-    head = Node::DeleteNodeAtLast(head); // Update head to new node after insertion
-    Node::traverse(head);
-
-    head = Node::DeleteNodeInBetween(head, 2); // Update head to new node after insertion
-    Node::traverse(head);
-
+    Node *res1 = Node::appendKNodes(head,4);
+    Node::traverse(res1);
+    /*****************************************************************************************/
     // Clean up memory
-    delete head;
+    //  delete[] head;
 
     return 0;
 }
