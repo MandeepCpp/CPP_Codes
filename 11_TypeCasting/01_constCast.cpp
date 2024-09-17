@@ -1,7 +1,9 @@
 // const_cast<T>(v) can be used to change the const or volatile qualifilers of pointers or references.
 // where T must be a pointer, reference or pointer to member type
 
-
+// purpose : adds or remove the const qualifier from a varibale
+// used with : pointers and referance
+// example : 
 
 #include<iostream>
 

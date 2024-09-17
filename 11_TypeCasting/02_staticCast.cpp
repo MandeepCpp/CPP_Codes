@@ -3,6 +3,10 @@
 
 using namespace std;
 
+// purpose : perform a compile time checking for conversion between compatable types
+// used with : basic data types , pointers and referance
+// example : 
+
 // it perform implicit conversion between types
 
 

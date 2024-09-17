@@ -4,6 +4,9 @@
 
 // it can typecast any pointer to any other pointer
 
+// purpose : perform unsafe conversion, allowing for low level bit manulation
+// used with : pointers and referance 
+// example : casting   pointer tp an unrelated type
 
 #include<iostream>
 using namespace std;

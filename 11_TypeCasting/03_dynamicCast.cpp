@@ -2,6 +2,11 @@
 
 using namespace std;
 
+// purpose : safely casts pointers and referances in an inheritance hirrachy at runtime
+// used with : pointers and referance to polymorphic types.
+// example : downcasting
+
+
 
 // to use dynamic cast , at least one virtual function in base class
 // if the cast is successfull, dynamic_cast returns a value of type new_type
