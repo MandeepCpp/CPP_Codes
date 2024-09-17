@@ -16,9 +16,43 @@
 
 using namespace std;
 
+struct Employee
+{
+std::string name;
+int id;
+double salary;
 
+
+Employee(const std::string& str, int i, double sal): name(str),id(i),salary(sal){}
+
+};
+
+struct compareSalary
+{
+    bool operator()(const Employee& a, const Employee & b)      //functor
+    {
+        return a.salary<b.salary;
+    }
+};
 int main()
 {
+
+    std::map<Employee,std::string, compareSalary> myEmployee;
+
+    // Example usage
+    myEmployee.emplace(Employee("Alice", 1, 50000.0), "Manager");
+    myEmployee.emplace(Employee("Bob", 2, 60000.0), "Developer");
+    myEmployee.emplace(Employee("Charlie", 3, 55000.0), "Analyst");
+
+    // Print out the employees sorted by salary
+    for (const auto& entry : myEmployee) {
+        std::cout << entry.first.name << " with salary " << entry.first.salary 
+                  << " is a " << entry.second << std::endl;
+    }
+
+
+    cout<<"*********************************************************"<<endl;
+
     std::map<string,int,std::greater<>> m;
     m["Mandeep"]  = 945;
     m["Nav"]      = 684;

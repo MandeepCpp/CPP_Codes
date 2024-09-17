@@ -63,6 +63,7 @@ class LibraryFactory
 };
 
 // only i need to change this part of code in future, client code will not change
+// when we have similiar behaviour or closely related and encapsulate the creation process, then we use 
 std::unique_ptr<Library> LibraryFactory:: getLibrary(int vehicleType)
 {
     if(vehicleType==1)
